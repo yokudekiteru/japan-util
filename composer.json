@@ -1,0 +1,19 @@
+{
+    "name": "ninja-anija/japan-util",
+    "description": "utilities peculiar to Japan",
+    "keywords": ["japan", "prefecture", "telephonenumber", "tel"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [{ "name": "NinjaAnija" }],
+    "autoload": {
+        "psr-4": {
+            "NinjaAnija\\JapanUtil\\": "src/"
+        }
+    },
+    "require": {
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    }
+}
