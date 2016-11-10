@@ -1,4 +1,6 @@
 [![CircleCI](https://circleci.com/gh/NinjaAnija/japan-util.svg?style=shield&circle-token=5937a1c02f22d7050e14eb952dffa7ae62f7e6aa)](https://circleci.com/gh/NinjaAnija/japan-util)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/NinjaAnija/japan-util/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/NinjaAnija/japan-util/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/NinjaAnija/japan-util/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/NinjaAnija/japan-util/?branch=master)
 
 # JapanUtil
 
