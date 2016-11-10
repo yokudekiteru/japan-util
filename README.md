@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/NinjaAnija/japan-util.svg?style=shield&circle-token=5937a1c02f22d7050e14eb952dffa7ae62f7e6aa)](https://circleci.com/gh/NinjaAnija/japan-util)
+
 # JapanUtil
 
 ## 都道府県コードデータソース
