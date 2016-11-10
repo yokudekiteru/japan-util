@@ -11,10 +11,11 @@
 
 namespace NinjaAnija\JapanUtil;
 
-class JapanStringUtilTest extends \PHPUnit_Framework_TestCase {
+class JapanStringUtilTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testStandardize() {
+    public function testStandardize()
+    {
         $this->assertSame('AB ガガガー-- らら', JapanStringUtil::standardize('　ＡB 　ガｶﾞｶﾞー--' . html_entity_decode("&nbsp;&nbsp;&nbsp;らら ")));
     }
-
 }

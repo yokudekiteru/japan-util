@@ -9,31 +9,38 @@
  * file that was distributed with this source code.
  */
 
+namespace NinjaAnija\JapanUtil;
+
 use NinjaAnija\JapanUtil;
 
-class JapanTelephoneExchangeNumberUtilTest extends \PHPUnit_Framework_TestCase {
-    public function testTokyo03() {
+class JapanTelephoneExchangeNumberUtilTest extends \PHPUnit_Framework_TestCase
+{
+    public function testTokyo03()
+    {
         $tel = '03-1111-1111';
         $result = JapanUtil\JapanTelephoneExchangeNumberUtil::telephoneNumberToPrefectureCode($tel);
         $this->assertSame($result, 13);
         $result = JapanUtil\JapanTelephoneExchangeNumberUtil::telephoneNumberToPrefectureCodeStrict($tel);
         $this->assertSame($result, 13);
     }
-    public function testMobilePhone() {
+    public function testMobilePhone()
+    {
         $tel = '090-1111-1111';
         $result = JapanUtil\JapanTelephoneExchangeNumberUtil::telephoneNumberToPrefectureCode($tel);
         $this->assertNull($result);
         $result = JapanUtil\JapanTelephoneExchangeNumberUtil::telephoneNumberToPrefectureCodeStrict($tel);
         $this->assertNull($result);
     }
-    private function getDeclaredTelephoneExchangeNumberPrefectureCodeMap() {
+    private function getDeclaredTelephoneExchangeNumberPrefectureCodeMap()
+    {
         $class = new \ReflectionClass('NinjaAnija\\JapanUtil\\JapanTelephoneExchangeNumberUtil');
-        $property = $class->getProperty('_telephoneExchangeNumberPrefectureCodeMap');
+        $property = $class->getProperty('telephoneExchangeNumberPrefectureCodeMap');
         $property->setAccessible(true);
         $value = $property->getValue();
         return $value;
     }
-    public function testNotStrictAll() {
+    public function testNotStrictAll()
+    {
         $value = $this->getDeclaredTelephoneExchangeNumberPrefectureCodeMap();
         foreach ($value as $telephoneExchangeNumber => $prefectureCodes) {
             // 桁数が少ない場合にどの数字でpadするかで上位桁のものとの兼ね合いにより結果が変わってしまう
@@ -43,7 +50,8 @@ class JapanTelephoneExchangeNumberUtilTest extends \PHPUnit_Framework_TestCase {
             $this->assertSame($result, $prefectureCodes[0]);
         }
     }
-    public function testStrictAll() {
+    public function testStrictAll()
+    {
         $value = $this->getDeclaredTelephoneExchangeNumberPrefectureCodeMap();
         foreach ($value as $telephoneExchangeNumber => $prefectureCodes) {
             // 桁数が少ない場合にどの数字でpadするかで上位桁のものとの兼ね合いにより結果が変わってしまう
@@ -58,4 +66,3 @@ class JapanTelephoneExchangeNumberUtilTest extends \PHPUnit_Framework_TestCase {
         }
     }
 }
-

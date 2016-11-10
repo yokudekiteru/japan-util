@@ -17,8 +17,9 @@ namespace NinjaAnija\JapanUtil;
  * @author Takashi OGAWA
  *
  */
-class JapanTelephoneExchangeNumberUtil {
-    private static $_telephoneExchangeNumberPrefectureCodeMap = [
+class JapanTelephoneExchangeNumberUtil
+{
+    private static $telephoneExchangeNumberPrefectureCodeMap = [
         9969 => [46],
         9913 => [46],
         9912 => [46],
@@ -409,66 +410,68 @@ class JapanTelephoneExchangeNumberUtil {
         3 => [13],
     ];
 
-    public static function telephoneNumberToPrefectureCode($tel) {
+    public static function telephoneNumberToPrefectureCode($tel)
+    {
         $tel = JapanStringUtil::standardize($tel);
         $tel = implode(explode('-', $tel));
 
         $needle = @substr($tel, 1, 4);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            return self::$_telephoneExchangeNumberPrefectureCodeMap[$needle][0];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            return self::$telephoneExchangeNumberPrefectureCodeMap[$needle][0];
         }
 
         $needle = @substr($tel, 1, 3);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            return self::$_telephoneExchangeNumberPrefectureCodeMap[$needle][0];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            return self::$telephoneExchangeNumberPrefectureCodeMap[$needle][0];
         }
 
         $needle = @substr($tel, 1, 2);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            return self::$_telephoneExchangeNumberPrefectureCodeMap[$needle][0];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            return self::$telephoneExchangeNumberPrefectureCodeMap[$needle][0];
         }
 
         $needle = @substr($tel, 1, 1);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            return self::$_telephoneExchangeNumberPrefectureCodeMap[$needle][0];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            return self::$telephoneExchangeNumberPrefectureCodeMap[$needle][0];
         }
 
         return null;
     }
 
-    public static function telephoneNumberToPrefectureCodeStrict($tel) {
+    public static function telephoneNumberToPrefectureCodeStrict($tel)
+    {
         $tel = JapanStringUtil::standardize($tel);
         $tel = implode(explode('-', $tel));
 
         $needle = @substr($tel, 1, 4);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            $result = self::$_telephoneExchangeNumberPrefectureCodeMap[$needle];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            $result = self::$telephoneExchangeNumberPrefectureCodeMap[$needle];
             return count($result) > 1 ? null : $result[0];
         }
 
         $needle = @substr($tel, 1, 3);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            $result = self::$_telephoneExchangeNumberPrefectureCodeMap[$needle];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            $result = self::$telephoneExchangeNumberPrefectureCodeMap[$needle];
             return count($result) > 1 ? null : $result[0];
         }
 
         $needle = @substr($tel, 1, 2);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            $result = self::$_telephoneExchangeNumberPrefectureCodeMap[$needle];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            $result = self::$telephoneExchangeNumberPrefectureCodeMap[$needle];
             return count($result) > 1 ? null : $result[0];
         }
 
         $needle = @substr($tel, 1, 1);
 
-        if (isset(self::$_telephoneExchangeNumberPrefectureCodeMap[$needle])) {
-            $result = self::$_telephoneExchangeNumberPrefectureCodeMap[$needle];
+        if (isset(self::$telephoneExchangeNumberPrefectureCodeMap[$needle])) {
+            $result = self::$telephoneExchangeNumberPrefectureCodeMap[$needle];
             return count($result) > 1 ? null : $result[0];
         }
 

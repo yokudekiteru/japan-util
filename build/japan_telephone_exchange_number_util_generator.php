@@ -69,11 +69,12 @@ foreach ($lines as $rowNum => $content) {
 }
 krsort($map);
 $convertMap = <<<FNC
-    private static \$_telephoneExchangeNumberPrefectureCodeMap = [
+    private static \$telephoneExchangeNumberPrefectureCodeMap = [
 FNC;
 
 $convertFunction = <<<FNC
-    public static function telephoneNumberToPrefectureCode(\$tel) {
+    public static function telephoneNumberToPrefectureCode(\$tel)
+    {
         \$tel = JapanStringUtil::standardize(\$tel);
         \$tel = implode(explode('-', \$tel));
 
@@ -81,7 +82,8 @@ FNC;
 
 
 $convertFunctionStrict = <<<FNC
-    public static function telephoneNumberToPrefectureCodeStrict(\$tel) {
+    public static function telephoneNumberToPrefectureCodeStrict(\$tel)
+    {
         \$tel = JapanStringUtil::standardize(\$tel);
         \$tel = implode(explode('-', \$tel));
 
@@ -95,8 +97,8 @@ foreach ($map as $exchangeNumber => $prefectureCodes) {
 ${convertFunction}
         \$needle = @substr(\$tel, 1, $exchangeNumberLength);
 
-        if (isset(self::\$_telephoneExchangeNumberPrefectureCodeMap[\$needle])) {
-            return self::\$_telephoneExchangeNumberPrefectureCodeMap[\$needle][0];
+        if (isset(self::\$telephoneExchangeNumberPrefectureCodeMap[\$needle])) {
+            return self::\$telephoneExchangeNumberPrefectureCodeMap[\$needle][0];
         }
 
 FNC;
@@ -105,8 +107,8 @@ FNC;
 ${convertFunctionStrict}
         \$needle = @substr(\$tel, 1, $exchangeNumberLength);
 
-        if (isset(self::\$_telephoneExchangeNumberPrefectureCodeMap[\$needle])) {
-            \$result = self::\$_telephoneExchangeNumberPrefectureCodeMap[\$needle];
+        if (isset(self::\$telephoneExchangeNumberPrefectureCodeMap[\$needle])) {
+            \$result = self::\$telephoneExchangeNumberPrefectureCodeMap[\$needle];
             return count(\$result) > 1 ? null : \$result[0];
         }
 
@@ -141,7 +143,8 @@ namespace NinjaAnija\\JapanUtil;
  * @author Takashi OGAWA
  *
  */
-class JapanTelephoneExchangeNumberUtil {
+class JapanTelephoneExchangeNumberUtil
+{
 ${convertMap}
     ];
 
@@ -153,6 +156,7 @@ ${convertFunctionStrict}
         return null;
     }
 }
+
 FNC;
 
 

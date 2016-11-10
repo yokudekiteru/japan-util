@@ -17,8 +17,9 @@ namespace NinjaAnija\JapanUtil;
  * @author Takashi OGAWA
  *
  */
-class JapanPrefectureUtil {
-    private static $_prefectureMap = [
+class JapanPrefectureUtil
+{
+    private static $prefectureMap = [
         1 => '北海道',
         2 => '青森県', 3 => '岩手県', 4 => '宮城県', 5 => '秋田県', 6 => '山形県', 7 => '福島県',
         8 => '茨城県', 9 => '栃木県', 10 => '群馬県', 11 => '埼玉県', 12 => '千葉県', 13 => '東京都', 14 => '神奈川県',
@@ -29,7 +30,7 @@ class JapanPrefectureUtil {
         40 => '福岡県', 41 => '佐賀県', 42 => '長崎県', 43 => '熊本県', 44 => '大分県', 45 => '宮崎県', 46 => '鹿児島県', 47 => '沖縄県',
     ];
 
-    private static $_areaMap = [
+    private static $areaMap = [
         1 => '北海道',
         2 => '東北',
         3 => '関東',
@@ -40,59 +41,65 @@ class JapanPrefectureUtil {
         8 => '九州',
     ];
 
-    private static $_prefectureAreaMap = [
+    private static $prefectureAreaMap = [
         1 => 1,
         2 => 2, 3 => 2, 4 => 2, 5 => 2, 6 => 2, 7 => 2,
         8 => 3, 9 => 3, 10 => 3, 11 => 3, 12 => 3, 13 => 3, 14 => 3,
         15 => 4, 16 => 4, 17 => 4, 18 => 4, 19 => 4, 20 => 4, 21 => 4, 22 => 4,
         24 => 5, 25 => 5, 26 => 5, 27 => 5, 28 => 5, 29 => 5, 30 => 5,
         31 => 6, 32 => 6, 33 => 6, 34 => 6,
-        36 => 7, 37 => 7, 38 => 7, 39 => 7, 
+        36 => 7, 37 => 7, 38 => 7, 39 => 7,
         40 => 8, 41 => 8, 42 => 8, 43 => 8, 44 => 8, 44 => 8, 45 => 8, 46 => 8, 48 => 8,
     ];
 
-    private static $_flippedPrefectureMap = null;
-    private static $_flippedAreaMap = null;
-    private static $_flippedPrefectureAreaMap = null;
+    private static $flippedPrefectureMap = null;
+    private static $flippedAreaMap = null;
+    private static $flippedPrefectureAreaMap = null;
 
-    private static function _prepareFlippedPrefectureMap() {
-        if (self::$_flippedPrefectureMap === null) { 
-            self::$_flippedPrefectureMap = array_flip(self::$_prefectureMap);
+    private static function prepareFlippedPrefectureMap()
+    {
+        if (self::$flippedPrefectureMap === null) {
+            self::$flippedPrefectureMap = array_flip(self::$prefectureMap);
         }
     }
 
-    private static function _prepareFlippedAreaMap() { 
-        if (self::$_flippedAreaMap === null) { 
-            self::$_flippedAreaMap = array_flip(self::$_areaMap);
-        } 
-    }
-
-    public static function convertCodeToName($prefectureCode) {
-        if (isset(self::$_prefectureMap[$prefectureCode])) {
-            return self::$_prefectureMap[$prefectureCode];
+    private static function prepareFlippedAreaMap()
+    {
+        if (self::$flippedAreaMap === null) {
+            self::$flippedAreaMap = array_flip(self::$areaMap);
         }
-        return null;
     }
 
-    public static function convertNameToCode($prefectureName) {
-        self::_prepareFlippedPrefectureMap();
-        if (isset(self::$_flippedPrefectureMap[$prefectureName])) {
-            return self::$_flippedPrefectureMap[$prefectureName];
+    public static function convertCodeToName($prefectureCode)
+    {
+        if (isset(self::$prefectureMap[$prefectureCode])) {
+            return self::$prefectureMap[$prefectureCode];
         }
         return null;
     }
 
-    public static function convertAreaCodeToName($areaCode) {
-        if (isset(self::$_areaMap[$areaCode])) {
-            return self::$_areaMap[$areaCode];
+    public static function convertNameToCode($prefectureName)
+    {
+        self::prepareFlippedPrefectureMap();
+        if (isset(self::$flippedPrefectureMap[$prefectureName])) {
+            return self::$flippedPrefectureMap[$prefectureName];
         }
         return null;
     }
 
-    public static function convertAreaNameToCode($areaName) {
-        self::_prepareFlippedAreaMap();
-        if (isset(self::$_flippedAreaMap[$areaName])) {
-            return self::$_flippedAreaMap[$areaName];
+    public static function convertAreaCodeToName($areaCode)
+    {
+        if (isset(self::$areaMap[$areaCode])) {
+            return self::$areaMap[$areaCode];
+        }
+        return null;
+    }
+
+    public static function convertAreaNameToCode($areaName)
+    {
+        self::prepareFlippedAreaMap();
+        if (isset(self::$flippedAreaMap[$areaName])) {
+            return self::$flippedAreaMap[$areaName];
         }
         return null;
     }
@@ -102,7 +109,8 @@ class JapanPrefectureUtil {
      * @param string $needle
      * @param integer $adjuster
      */
-    private static function _mbStrposOf($heystack, $needle, $adjuster) {
+    private static function mbStrposOf($heystack, $needle, $adjuster)
+    {
         $mbStrposOf = mb_strpos($heystack, $needle);
         if ($mbStrposOf !== false) {
             $mbStrposOf -= $adjuster;
@@ -113,13 +121,14 @@ class JapanPrefectureUtil {
         return $mbStrposOf;
     }
 
-    public static function pickFirstAsCode($address) {
+    public static function pickFirstAsCode($address)
+    {
         $address = JapanStringUtil::standardize($address);
         $array = [
-            1 => self::_mbStrposOf($address, '東京都', 0),
-            2 => self::_mbStrposOf($address, '北海道', 0),
-            3 => self::_mbStrposOf($address, '府', 2),
-            4 => self::_mbStrposOf($address, '県', 2),
+            1 => self::mbStrposOf($address, '東京都', 0),
+            2 => self::mbStrposOf($address, '北海道', 0),
+            3 => self::mbStrposOf($address, '府', 2),
+            4 => self::mbStrposOf($address, '県', 2),
         ];
         $array[5] = $array[4] === -1 ? -1 : $array[4] - 1;
         asort($array);
@@ -141,12 +150,14 @@ class JapanPrefectureUtil {
     /**
      * @param string $address
      */
-    public static function pickFirst($address) {
+    public static function pickFirst($address)
+    {
         $pickedCode = self::pickFirstAsCode($address);
         return self::convertCodeToName($pickedCode);
     }
 
-    public static function pickAll($address) {
+    public static function pickAll($address)
+    {
         $address = JapanStringUtil::standardize($address);
         $list = [];
         while ($prefectureName = self::pickFirst($address)) {
@@ -156,7 +167,8 @@ class JapanPrefectureUtil {
         return $list;
     }
 
-    public static function pickAllAsCode($address) {
+    public static function pickAllAsCode($address)
+    {
         $list = self::pickAll($address);
         $codeList = [];
         foreach ($list as $prefectureName) {
@@ -165,16 +177,17 @@ class JapanPrefectureUtil {
         return $codeList;
     }
 
-    public static function getAreaCode($prefectureNameOrCode) {
+    public static function getAreaCode($prefectureNameOrCode)
+    {
         if (!is_numeric($prefectureNameOrCode)) {
             $prefectureNameOrCode = self::convertNameToCode($prefectureNameOrCode);
         }
-        return $prefectureNameOrCode === null ? null : self::$_prefectureAreaMap[$prefectureNameOrCode];
+        return $prefectureNameOrCode === null ? null : self::$prefectureAreaMap[$prefectureNameOrCode];
     }
 
-    public static function getAreaName($prefectureNameOrCode) {
+    public static function getAreaName($prefectureNameOrCode)
+    {
         $areaCode = self::getAreaCode($prefectureNameOrCode);
         return self::convertAreaCodeToName($areaCode);
     }
-
 }
